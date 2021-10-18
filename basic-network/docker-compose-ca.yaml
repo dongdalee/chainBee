@@ -1,0 +1,37 @@
+version: '2'
+
+networks:
+  acorn:
+
+services:
+  ca.sales1.chainbee.com:
+    image: hyperledger/fabric-ca
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.sales1.chainbee.com
+      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.sales1.chainbee.com-cert.pem
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/7f54346bc223a38912988b17156e07f73148be931ddebf659e94bf572ebeb5d6_sk
+    ports:
+      - "7054:7054"
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/sales1.chainbee.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.sales1.chainbee.com
+    networks:
+      - acorn
+
+  ca.sales2.chainbee.com:
+    image: hyperledger/fabric-ca
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.sales2.chainbee.com
+      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.sales2.chainbee.com-cert.pem
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/31deb0b94d0f68e4dcfc3fce8329a48e5f373b281b444db91ddc7ef2e50f572a_sk
+    ports:
+      - "8054:7054"
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/sales2.chainbee.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.sales2.chainbee.com
+    networks:
+      - acorn
