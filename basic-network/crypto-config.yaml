@@ -1,0 +1,26 @@
+OrdererOrgs:
+  - Name: Orderer
+    Domain: chainbee.com
+    Specs:
+      - Hostname: orderer1
+      - Hostname: orderer2
+
+PeerOrgs:
+  - Name: Sales1
+    Domain: sales1.chainbee.com
+    Template:
+      Count: 2
+    Users:
+      Count: 1
+  - Name: Sales2
+    Domain: sales2.chainbee.com
+    Template:
+      Count: 2
+    Users:
+      Count: 1
+  - Name: Customer
+    Domain: customer.chainbee.com
+    Template:
+      Count: 2
+    Users:
+      Count: 1
