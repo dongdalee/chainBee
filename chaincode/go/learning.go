@@ -130,7 +130,7 @@ func (s *SmartContract) getUserInfo(APIstub shim.ChaincodeStubInterface, args []
 	return shim.Error("can't search user")
 }
 
-var weightList map[int] []UserWeight
+var weightList map[int] []UserWeight = make(map[int] []UserWeight)
 
 type UserWeight struct {
 	uploadUserID string
