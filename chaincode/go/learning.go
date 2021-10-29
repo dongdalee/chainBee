@@ -37,6 +37,8 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) pb.Response 
 		return s.updateUserToken(APIstub, args)
 	} else if function == "updateGlobalAccuracy" {
 		return s.updateGlobalAccuracy(APIstub, args)
+	} else if function == "getGlobalAccuracy" {
+		return s.getGlobalAccuracy(APIstub, args)
 	}
 	fmt.Println("Please check your function : " + function)
 	return shim.Error("Unknown function")
@@ -262,55 +264,85 @@ func (s *SmartContract) getUserWeight(APIstub shim.ChaincodeStubInterface, args 
 
 	//conv layer
 	buffer.WriteString("conv0weight:[")
-	for _, value := range conv0weightResult {
+	for i, value := range conv0weightResult {
 		buffer.WriteString(value)
+		if i< len(conv0weightResult)-1{
+			buffer.WriteString(",")
+		}
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("conv0bias:[")
-	for _, value := range conv0biasResult {
+	for i, value := range conv0biasResult {
 		buffer.WriteString(value)
+		if i< len(conv0weightResult)-1{
+			buffer.WriteString(",")
+		}
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("conv3weight:[")
-	for _, value := range conv3weightResult {
+	for i, value := range conv3weightResult {
 		buffer.WriteString(value)
+		if i< len(conv0weightResult)-1{
+			buffer.WriteString(",")
+		}
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("conv3bias:[")
-	for _, value := range conv3biasResult {
+	for i, value := range conv3biasResult {
 		buffer.WriteString(value)
+		if i< len(conv0weightResult)-1{
+			buffer.WriteString(",")
+		}
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("conv6weight:[")
-	for _, value := range conv6weightResult {
+	for i, value := range conv6weightResult {
 		buffer.WriteString(value)
+		if i< len(conv0weightResult)-1{
+			buffer.WriteString(",")
+		}
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("conv6bias:[")
-	for _, value := range conv6biasResult {
+	for i, value := range conv6biasResult {
 		buffer.WriteString(value)
+		if i< len(conv0weightResult)-1{
+			buffer.WriteString(",")
+		}
 	}
 	buffer.WriteString("],")
 
 	//fc layer
 	buffer.WriteString("fc0weight:[")
-	for _, value := range fc0weightResult {
+	for i, value := range fc0weightResult {
 		buffer.WriteString(value)
+		if i< len(conv0weightResult)-1{
+			buffer.WriteString(",")
+		}
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("fc0bias:[")
-	for _, value := range fc0biasResult {
+	for i, value := range fc0biasResult {
 		buffer.WriteString(value)
+		if i< len(conv0weightResult)-1{
+			buffer.WriteString(",")
+		}
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("fc2weight:[")
-	for _, value := range fc2weightResult {
+	for i, value := range fc2weightResult {
 		buffer.WriteString(value)
+		if i< len(conv0weightResult)-1{
+			buffer.WriteString(",")
+		}
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("fc2bias:[")
-	for _, value := range fc2biasResult {
+	for i, value := range fc2biasResult {
 		buffer.WriteString(value)
+		if i< len(conv0weightResult)-1{
+			buffer.WriteString(",")
+		}
 	}
 	buffer.WriteString("]")
 	buffer.WriteString("}")
@@ -358,55 +390,85 @@ func (s *SmartContract) aggregation(APIstub shim.ChaincodeStubInterface, args []
 
 	//conv layer
 	buffer.WriteString("conv0weight:[")
-	for _, value := range conv0weightResult {
+	for i, value := range conv0weightResult {
 		buffer.WriteString(value)
+		if i< len(conv0weightResult)-1{
+			buffer.WriteString(",")
+		}
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("conv0bias:[")
-	for _, value := range conv0biasResult {
+	for i, value := range conv0biasResult {
 		buffer.WriteString(value)
+		if i< len(conv0weightResult)-1{
+			buffer.WriteString(",")
+		}
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("conv3weight:[")
-	for _, value := range conv3weightResult {
+	for i, value := range conv3weightResult {
 		buffer.WriteString(value)
+		if i< len(conv0weightResult)-1{
+			buffer.WriteString(",")
+		}
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("conv3bias:[")
-	for _, value := range conv3biasResult {
+	for i, value := range conv3biasResult {
 		buffer.WriteString(value)
+		if i< len(conv0weightResult)-1{
+			buffer.WriteString(",")
+		}
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("conv6weight:[")
-	for _, value := range conv6weightResult {
+	for i, value := range conv6weightResult {
 		buffer.WriteString(value)
+		if i< len(conv0weightResult)-1{
+			buffer.WriteString(",")
+		}
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("conv6bias:[")
-	for _, value := range conv6biasResult {
+	for i, value := range conv6biasResult {
 		buffer.WriteString(value)
+		if i< len(conv0weightResult)-1{
+			buffer.WriteString(",")
+		}
 	}
 	buffer.WriteString("],")
 
 	//fc layer
 	buffer.WriteString("fc0weight:[")
-	for _, value := range fc0weightResult {
+	for i, value := range fc0weightResult {
 		buffer.WriteString(value)
+		if i< len(conv0weightResult)-1{
+			buffer.WriteString(",")
+		}
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("fc0bias:[")
-	for _, value := range fc0biasResult {
+	for i, value := range fc0biasResult {
 		buffer.WriteString(value)
+		if i< len(conv0weightResult)-1{
+			buffer.WriteString(",")
+		}
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("fc2weight:[")
-	for _, value := range fc2weightResult {
+	for i, value := range fc2weightResult {
 		buffer.WriteString(value)
+		if i< len(conv0weightResult)-1{
+			buffer.WriteString(",")
+		}
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("fc2bias:[")
-	for _, value := range fc2biasResult {
+	for i, value := range fc2biasResult {
 		buffer.WriteString(value)
+		if i< len(conv0weightResult)-1{
+			buffer.WriteString(",")
+		}
 	}
 	buffer.WriteString("]")
 	buffer.WriteString("}")
