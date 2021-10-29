@@ -4,14 +4,16 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/hyperledger/fabric/core/chaincode/shim"
-	pb "github.com/hyperledger/fabric/protos/peer"
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/hyperledger/fabric/core/chaincode/shim"
+	pb "github.com/hyperledger/fabric/protos/peer"
 )
 
-type SmartContract struct {}
+type SmartContract struct{}
+
 func (s *SmartContract) Init(APIstub shim.ChaincodeStubInterface) pb.Response {
 	return shim.Success(nil)
 }
@@ -40,7 +42,6 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) pb.Response 
 	return shim.Error("Unknown function")
 }
 
-
 func main() {
 
 	err := shim.Start(new(SmartContract))
@@ -52,9 +53,9 @@ func main() {
 var userList []User
 
 type User struct {
-	userID string
+	userID  string
 	userKey string
-	Token string
+	Token   string
 }
 
 // INPUT: user_id, user_private_key | OUTPUT: success or fail
@@ -64,7 +65,7 @@ func (s *SmartContract) enrollUser(APIstub shim.ChaincodeStubInterface, args []s
 	}
 
 	for _, value := range userList {
-		if value.userID == args[0]{
+		if value.userID == args[0] {
 			return shim.Error("userID already exits")
 		}
 	}
@@ -96,7 +97,7 @@ func (s *SmartContract) quitUser(APIstub shim.ChaincodeStubInterface, args []str
 		return shim.Error("Failed to delete User")
 	}
 
-	for index, value := range userList{
+	for index, value := range userList {
 		if value.userID == args[0] {
 			userList = append(userList[:index], userList[index+1:]...)
 			return shim.Success(nil)
@@ -136,29 +137,29 @@ func (s *SmartContract) getUserInfo(APIstub shim.ChaincodeStubInterface, args []
 	return shim.Error("can't search user")
 }
 
-var userWeightList map[int] []UserWeight = make(map[int] []UserWeight)
+var userWeightList map[int][]UserWeight = make(map[int][]UserWeight)
 
-var modelList map[int] []LeNet5 = make(map[int] []LeNet5)
+var modelList map[int][]LeNet5 = make(map[int][]LeNet5)
 
 type UserWeight struct {
 	uploadUserID string
-	weight LeNet5
+	weight       LeNet5
 }
 
 type LeNet5 struct {
 	conv0weight []float64
-	conv0bias []float64
+	conv0bias   []float64
 	conv3weight []float64
-	conv3bias []float64
+	conv3bias   []float64
 	conv6weight []float64
-	conv6bias []float64
-	fc0weight []float64
-	fc0bias []float64
-	fc2weight []float64
-	fc2bias []float64
+	conv6bias   []float64
+	fc0weight   []float64
+	fc0bias     []float64
+	fc2weight   []float64
+	fc2bias     []float64
 }
 
-func (s *SmartContract) uploadWeight (APIstub shim.ChaincodeStubInterface, args []string) pb.Response {
+func (s *SmartContract) uploadWeight(APIstub shim.ChaincodeStubInterface, args []string) pb.Response {
 	if len(args) != 3 {
 		return shim.Error("Incorrect number of arguments. Expecting 3")
 	}
@@ -210,7 +211,6 @@ func (s *SmartContract) uploadWeight (APIstub shim.ChaincodeStubInterface, args 
 	fc2biasStringList := stringToStringList(fc2biasString)
 	fc2biasFloat := stringListToFloatList(fc2biasStringList)
 
-
 	//가중치 리스트 생성
 	model := LeNet5{conv0weight: conv0weightFloat, conv0bias: conv0biasFloat, conv3weight: conv3weightFloat, conv3bias: conv3biasFloat, conv6weight: conv6weightFloat, conv6bias: conv6biasFloat, fc0weight: fc0weighttFloat, fc0bias: fc0biasFloat, fc2weight: fc2weighttFloat, fc2bias: fc2biasFloat}
 	modelList[round] = append(modelList[round], model)
@@ -221,8 +221,7 @@ func (s *SmartContract) uploadWeight (APIstub shim.ChaincodeStubInterface, args 
 	return shim.Success(nil)
 }
 
-
-func (s *SmartContract) getUserWeight (APIstub shim.ChaincodeStubInterface, args []string) pb.Response {
+func (s *SmartContract) getUserWeight(APIstub shim.ChaincodeStubInterface, args []string) pb.Response {
 	if len(args) != 2 {
 		return shim.Error("Incorrect number of arguments. Expecting 2")
 	}
@@ -253,7 +252,6 @@ func (s *SmartContract) getUserWeight (APIstub shim.ChaincodeStubInterface, args
 	fc2weightResult := float64ListToStringList(result.weight.fc2weight)
 	fc2biasResult := float64ListToStringList(result.weight.fc2bias)
 
-
 	var buffer bytes.Buffer
 	buffer.WriteString("{")
 	buffer.WriteString("userID:")
@@ -264,54 +262,54 @@ func (s *SmartContract) getUserWeight (APIstub shim.ChaincodeStubInterface, args
 
 	//conv layer
 	buffer.WriteString("conv0weight:[")
-	for _, value := range conv0weightResult{
+	for _, value := range conv0weightResult {
 		buffer.WriteString(value)
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("conv0bias:[")
-	for _, value := range conv0biasResult{
+	for _, value := range conv0biasResult {
 		buffer.WriteString(value)
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("conv3weight:[")
-	for _, value := range conv3weightResult{
+	for _, value := range conv3weightResult {
 		buffer.WriteString(value)
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("conv3bias:[")
-	for _, value := range conv3biasResult{
+	for _, value := range conv3biasResult {
 		buffer.WriteString(value)
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("conv6weight:[")
-	for _, value := range conv6weightResult{
+	for _, value := range conv6weightResult {
 		buffer.WriteString(value)
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("conv6bias:[")
-	for _, value := range conv6biasResult{
+	for _, value := range conv6biasResult {
 		buffer.WriteString(value)
 	}
 	buffer.WriteString("],")
 
 	//fc layer
 	buffer.WriteString("fc0weight:[")
-	for _, value := range fc0weightResult{
+	for _, value := range fc0weightResult {
 		buffer.WriteString(value)
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("fc0bias:[")
-	for _, value := range fc0biasResult{
+	for _, value := range fc0biasResult {
 		buffer.WriteString(value)
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("fc2weight:[")
-	for _, value := range fc2weightResult{
+	for _, value := range fc2weightResult {
 		buffer.WriteString(value)
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("fc2bias:[")
-	for _, value := range fc2biasResult{
+	for _, value := range fc2biasResult {
 		buffer.WriteString(value)
 	}
 	buffer.WriteString("]")
@@ -320,19 +318,28 @@ func (s *SmartContract) getUserWeight (APIstub shim.ChaincodeStubInterface, args
 	return shim.Success(buffer.Bytes())
 }
 
+func (s *SmartContract) aggregation(APIstub shim.ChaincodeStubInterface, args []string) pb.Response {
 
-func (s *SmartContract) aggregation (APIstub shim.ChaincodeStubInterface, args []string) pb.Response {
+	if len(args) != 1 {
+		return shim.Error("Incorrect number of arguments. Expecting 2")
+	}
+
+	round, err := strconv.Atoi(args[0])
+	if err != nil {
+		return shim.Error("Round number Input Error")
+	}
+
 	globalModel := LeNet5{
-		conv0weight: aggregator(0,"conv0weight"),
-		conv0bias: aggregator(0,"conv0bias"),
-		conv3weight: aggregator(0,"conv3weight"),
-		conv3bias: aggregator(0,"conv3bias"),
-		conv6weight: aggregator(0,"conv6weight"),
-		conv6bias: aggregator(0,"conv6bias"),
-		fc0weight: aggregator(0,"fc0weight"),
-		fc0bias: aggregator(0,"fc0bias"),
-		fc2weight: aggregator(0,"fc2weight"),
-		fc2bias: aggregator(0,"fc2bias"),
+		conv0weight: aggregator(round, "conv0weight"),
+		conv0bias:   aggregator(round, "conv0bias"),
+		conv3weight: aggregator(round, "conv3weight"),
+		conv3bias:   aggregator(round, "conv3bias"),
+		conv6weight: aggregator(round, "conv6weight"),
+		conv6bias:   aggregator(round, "conv6bias"),
+		fc0weight:   aggregator(round, "fc0weight"),
+		fc0bias:     aggregator(round, "fc0bias"),
+		fc2weight:   aggregator(round, "fc2weight"),
+		fc2bias:     aggregator(round, "fc2bias"),
 	}
 
 	conv0weightResult := float64ListToStringList(globalModel.conv0weight)
@@ -351,54 +358,54 @@ func (s *SmartContract) aggregation (APIstub shim.ChaincodeStubInterface, args [
 
 	//conv layer
 	buffer.WriteString("conv0weight:[")
-	for _, value := range conv0weightResult{
+	for _, value := range conv0weightResult {
 		buffer.WriteString(value)
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("conv0bias:[")
-	for _, value := range conv0biasResult{
+	for _, value := range conv0biasResult {
 		buffer.WriteString(value)
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("conv3weight:[")
-	for _, value := range conv3weightResult{
+	for _, value := range conv3weightResult {
 		buffer.WriteString(value)
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("conv3bias:[")
-	for _, value := range conv3biasResult{
+	for _, value := range conv3biasResult {
 		buffer.WriteString(value)
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("conv6weight:[")
-	for _, value := range conv6weightResult{
+	for _, value := range conv6weightResult {
 		buffer.WriteString(value)
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("conv6bias:[")
-	for _, value := range conv6biasResult{
+	for _, value := range conv6biasResult {
 		buffer.WriteString(value)
 	}
 	buffer.WriteString("],")
 
 	//fc layer
 	buffer.WriteString("fc0weight:[")
-	for _, value := range fc0weightResult{
+	for _, value := range fc0weightResult {
 		buffer.WriteString(value)
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("fc0bias:[")
-	for _, value := range fc0biasResult{
+	for _, value := range fc0biasResult {
 		buffer.WriteString(value)
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("fc2weight:[")
-	for _, value := range fc2weightResult{
+	for _, value := range fc2weightResult {
 		buffer.WriteString(value)
 	}
 	buffer.WriteString("],")
 	buffer.WriteString("fc2bias:[")
-	for _, value := range fc2biasResult{
+	for _, value := range fc2biasResult {
 		buffer.WriteString(value)
 	}
 	buffer.WriteString("]")
@@ -409,10 +416,10 @@ func (s *SmartContract) aggregation (APIstub shim.ChaincodeStubInterface, args [
 	return shim.Success(buffer.Bytes())
 }
 
-func float64ListToStringList(floatList []float64) []string{
+func float64ListToStringList(floatList []float64) []string {
 	var result []string
 
-	for _, value := range floatList{
+	for _, value := range floatList {
 		strValue := strconv.FormatFloat(value, 'f', -1, 64)
 		result = append(result, strValue)
 	}
@@ -420,8 +427,7 @@ func float64ListToStringList(floatList []float64) []string{
 	return result
 }
 
-
-func aggregator(round int, layerName string) []float64{
+func aggregator(round int, layerName string) []float64 {
 	var weightAggregation []float64
 
 	if layerName == "conv0weight" {
@@ -563,9 +569,9 @@ func aggregator(round int, layerName string) []float64{
 
 //string 가중치 값 -> 스트링값 리스트로 변환
 func stringToStringList(data string) []string {
-	patten := regexp.MustCompile(`[\[\],]+`) // 제거할 패턴 선언 | "[ ] ," 제거
+	patten := regexp.MustCompile(`[\[\],]+`)   // 제거할 패턴 선언 | "[ ] ," 제거
 	value := patten.ReplaceAllString(data, "") // 문자열 리스트에서 [] 제거
-	stringList:= strings.Split(value, " ") // 문자열 리스트 생성
+	stringList := strings.Split(value, " ")    // 문자열 리스트 생성
 
 	return stringList
 }
@@ -579,12 +585,12 @@ func jsonToStringList(doc string) map[string]string {
 }
 
 // 각 리스트의 스트링값을 float64로 변환
-func stringListToFloatList(input []string) []float64{
+func stringListToFloatList(input []string) []float64 {
 	var floatList []float64
 
 	for _, value := range input {
 		castValue, err := strconv.ParseFloat(strings.TrimSpace(value), 64)
-		if err != nil{
+		if err != nil {
 			return nil
 		}
 		floatList = append(floatList, castValue)
@@ -592,7 +598,6 @@ func stringListToFloatList(input []string) []float64{
 
 	return floatList
 }
-
 
 // INPUT: user_id, token | OUTPUT: success or fail
 func (s *SmartContract) updateUserToken(APIstub shim.ChaincodeStubInterface, args []string) pb.Response {
@@ -646,7 +651,3 @@ func (s *SmartContract) getGlobalAccuracy(APIstub shim.ChaincodeStubInterface, a
 
 	return shim.Success(buffer.Bytes())
 }
-
-
-
-
