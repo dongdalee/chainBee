@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ev
 
-CCNAME="learning-cc-ch19";
+CCNAME="learning-cc-ch21";
 
 # install chaincode for channelsales1
 docker exec cli1 peer chaincode install -n $CCNAME -v 1.0 -p chaincode/go
@@ -14,6 +14,8 @@ sleep 10
 docker exec cli1 peer chaincode invoke -o orderer1.chainbee.com:7050 -C channelsales1 -n $CCNAME -c '{"function":"enrollUser","Args":["user1", "user1_key"]}'
 sleep 1
 docker exec cli1 peer chaincode invoke -o orderer1.chainbee.com:7050 -C channelsales1 -n $CCNAME -c '{"function":"enrollUser","Args":["user2", "user2_key"]}'
+sleep 1
+docker exec cli1 peer chaincode invoke -o orderer1.chainbee.com:7050 -C channelsales1 -n $CCNAME -c '{"function":"enrollUser","Args":["user3", "user3_key"]}'
 sleep 1
 
 # updateUserToken | INPUT: userID, Token | OUTPUT: 200 or 400
@@ -55,6 +57,8 @@ sleep 3
 # aggregation | INPUT: round | OUTPUT: 해당 round의 모든 모델 가중치를 aggregation하여 반환한다.
 docker exec cli1 peer chaincode query -o orderer1.chainbee.com:7050 -C channelsales1 -n $CCNAME -c '{"function":"aggregation","Args":["0"]}'
 
+# getAlluserID | INPUT: | OUPUT: 블록체인에 참여한 모든 사용자 ID
+docker exec cli1 peer chaincode query -o orderer1.chainbee.com:7050 -C channelsales1 -n $CCNAME -c '{"function":"getAllUserID","Args":[]}'
 
 
 

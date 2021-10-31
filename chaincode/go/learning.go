@@ -39,10 +39,15 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) pb.Response 
 		return s.updateGlobalAccuracy(APIstub, args)
 	} else if function == "getGlobalAccuracy" {
 		return s.getGlobalAccuracy(APIstub, args)
+	} else if function == "getAllUserID" {
+		return s.getAllUserID(APIstub)
 	}
 	fmt.Println("Please check your function : " + function)
 	return shim.Error("Unknown function")
 }
+
+
+
 
 func main() {
 
@@ -137,6 +142,24 @@ func (s *SmartContract) getUserInfo(APIstub shim.ChaincodeStubInterface, args []
 	}
 
 	return shim.Error("can't search user")
+}
+
+func (s *SmartContract) getAllUserID(APIstub shim.ChaincodeStubInterface) pb.Response {
+
+	var buffer bytes.Buffer
+
+	buffer.WriteString("[")
+
+	for i, value := range userList{
+		buffer.WriteString(value.userID)
+		if i< len(userList)-1{
+			buffer.WriteString(",")
+		}
+	}
+
+	buffer.WriteString("]")
+
+	return shim.Success(buffer.Bytes())
 }
 
 var userWeightList map[int][]UserWeight = make(map[int][]UserWeight)
