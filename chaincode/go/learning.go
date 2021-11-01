@@ -297,7 +297,7 @@ func (s *SmartContract) getUserWeight(APIstub shim.ChaincodeStubInterface, args 
 	buffer.WriteString("conv0bias:[")
 	for i, value := range conv0biasResult {
 		buffer.WriteString(value)
-		if i< len(conv0weightResult)-1{
+		if i< len(conv0biasResult)-1{
 			buffer.WriteString(",")
 		}
 	}
@@ -305,7 +305,7 @@ func (s *SmartContract) getUserWeight(APIstub shim.ChaincodeStubInterface, args 
 	buffer.WriteString("conv3weight:[")
 	for i, value := range conv3weightResult {
 		buffer.WriteString(value)
-		if i< len(conv0weightResult)-1{
+		if i< len(conv3weightResult)-1{
 			buffer.WriteString(",")
 		}
 	}
@@ -313,7 +313,7 @@ func (s *SmartContract) getUserWeight(APIstub shim.ChaincodeStubInterface, args 
 	buffer.WriteString("conv3bias:[")
 	for i, value := range conv3biasResult {
 		buffer.WriteString(value)
-		if i< len(conv0weightResult)-1{
+		if i< len(conv3biasResult)-1{
 			buffer.WriteString(",")
 		}
 	}
@@ -321,7 +321,7 @@ func (s *SmartContract) getUserWeight(APIstub shim.ChaincodeStubInterface, args 
 	buffer.WriteString("conv6weight:[")
 	for i, value := range conv6weightResult {
 		buffer.WriteString(value)
-		if i< len(conv0weightResult)-1{
+		if i< len(conv6weightResult)-1{
 			buffer.WriteString(",")
 		}
 	}
@@ -329,7 +329,7 @@ func (s *SmartContract) getUserWeight(APIstub shim.ChaincodeStubInterface, args 
 	buffer.WriteString("conv6bias:[")
 	for i, value := range conv6biasResult {
 		buffer.WriteString(value)
-		if i< len(conv0weightResult)-1{
+		if i< len(conv6biasResult)-1{
 			buffer.WriteString(",")
 		}
 	}
@@ -339,7 +339,7 @@ func (s *SmartContract) getUserWeight(APIstub shim.ChaincodeStubInterface, args 
 	buffer.WriteString("fc0weight:[")
 	for i, value := range fc0weightResult {
 		buffer.WriteString(value)
-		if i< len(conv0weightResult)-1{
+		if i< len(fc0weightResult)-1{
 			buffer.WriteString(",")
 		}
 	}
@@ -347,7 +347,7 @@ func (s *SmartContract) getUserWeight(APIstub shim.ChaincodeStubInterface, args 
 	buffer.WriteString("fc0bias:[")
 	for i, value := range fc0biasResult {
 		buffer.WriteString(value)
-		if i< len(conv0weightResult)-1{
+		if i< len(fc0biasResult)-1{
 			buffer.WriteString(",")
 		}
 	}
@@ -355,7 +355,7 @@ func (s *SmartContract) getUserWeight(APIstub shim.ChaincodeStubInterface, args 
 	buffer.WriteString("fc2weight:[")
 	for i, value := range fc2weightResult {
 		buffer.WriteString(value)
-		if i< len(conv0weightResult)-1{
+		if i< len(fc2weightResult)-1{
 			buffer.WriteString(",")
 		}
 	}
@@ -363,7 +363,7 @@ func (s *SmartContract) getUserWeight(APIstub shim.ChaincodeStubInterface, args 
 	buffer.WriteString("fc2bias:[")
 	for i, value := range fc2biasResult {
 		buffer.WriteString(value)
-		if i< len(conv0weightResult)-1{
+		if i< len(fc2biasResult)-1{
 			buffer.WriteString(",")
 		}
 	}
@@ -423,7 +423,7 @@ func (s *SmartContract) aggregation(APIstub shim.ChaincodeStubInterface, args []
 	buffer.WriteString("conv0bias:[")
 	for i, value := range conv0biasResult {
 		buffer.WriteString(value)
-		if i< len(conv0weightResult)-1{
+		if i< len(conv0biasResult)-1{
 			buffer.WriteString(",")
 		}
 	}
@@ -431,7 +431,7 @@ func (s *SmartContract) aggregation(APIstub shim.ChaincodeStubInterface, args []
 	buffer.WriteString("conv3weight:[")
 	for i, value := range conv3weightResult {
 		buffer.WriteString(value)
-		if i< len(conv0weightResult)-1{
+		if i< len(conv3weightResult)-1{
 			buffer.WriteString(",")
 		}
 	}
@@ -439,7 +439,7 @@ func (s *SmartContract) aggregation(APIstub shim.ChaincodeStubInterface, args []
 	buffer.WriteString("conv3bias:[")
 	for i, value := range conv3biasResult {
 		buffer.WriteString(value)
-		if i< len(conv0weightResult)-1{
+		if i< len(conv3biasResult)-1{
 			buffer.WriteString(",")
 		}
 	}
@@ -447,7 +447,7 @@ func (s *SmartContract) aggregation(APIstub shim.ChaincodeStubInterface, args []
 	buffer.WriteString("conv6weight:[")
 	for i, value := range conv6weightResult {
 		buffer.WriteString(value)
-		if i< len(conv0weightResult)-1{
+		if i< len(conv6weightResult)-1{
 			buffer.WriteString(",")
 		}
 	}
@@ -455,7 +455,7 @@ func (s *SmartContract) aggregation(APIstub shim.ChaincodeStubInterface, args []
 	buffer.WriteString("conv6bias:[")
 	for i, value := range conv6biasResult {
 		buffer.WriteString(value)
-		if i< len(conv0weightResult)-1{
+		if i< len(conv6biasResult)-1{
 			buffer.WriteString(",")
 		}
 	}
@@ -465,7 +465,7 @@ func (s *SmartContract) aggregation(APIstub shim.ChaincodeStubInterface, args []
 	buffer.WriteString("fc0weight:[")
 	for i, value := range fc0weightResult {
 		buffer.WriteString(value)
-		if i< len(conv0weightResult)-1{
+		if i< len(fc0weightResult)-1{
 			buffer.WriteString(",")
 		}
 	}
@@ -473,7 +473,7 @@ func (s *SmartContract) aggregation(APIstub shim.ChaincodeStubInterface, args []
 	buffer.WriteString("fc0bias:[")
 	for i, value := range fc0biasResult {
 		buffer.WriteString(value)
-		if i< len(conv0weightResult)-1{
+		if i< len(fc0biasResult)-1{
 			buffer.WriteString(",")
 		}
 	}
@@ -481,7 +481,7 @@ func (s *SmartContract) aggregation(APIstub shim.ChaincodeStubInterface, args []
 	buffer.WriteString("fc2weight:[")
 	for i, value := range fc2weightResult {
 		buffer.WriteString(value)
-		if i< len(conv0weightResult)-1{
+		if i< len(fc2weightResult)-1{
 			buffer.WriteString(",")
 		}
 	}
@@ -489,7 +489,7 @@ func (s *SmartContract) aggregation(APIstub shim.ChaincodeStubInterface, args []
 	buffer.WriteString("fc2bias:[")
 	for i, value := range fc2biasResult {
 		buffer.WriteString(value)
-		if i< len(conv0weightResult)-1{
+		if i< len(fc2biasResult)-1{
 			buffer.WriteString(",")
 		}
 	}
