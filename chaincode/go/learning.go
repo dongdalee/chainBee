@@ -497,8 +497,6 @@ func (s *SmartContract) aggregation(APIstub shim.ChaincodeStubInterface, args []
 	buffer.WriteString("}")
 
 	return shim.Success(buffer.Bytes())
-
-	return shim.Success(buffer.Bytes())
 }
 
 func float64ListToStringList(floatList []float64) []string {
